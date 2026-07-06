@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>福返返内部产品说明-本轮更新版</title>
+<style>
+body{margin:0;background:#f4f7fb;color:#172033;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",Arial,sans-serif}
+.wrap{max-width:1080px;margin:0 auto;background:#fff;min-height:100vh;padding:44px 34px 90px;box-shadow:0 18px 55px rgba(15,23,42,.08)}
+h1{font-size:36px;margin:0 0 24px;padding-bottom:18px;border-bottom:4px solid #2563eb}
+h2{font-size:25px;margin-top:42px;border-left:5px solid #2563eb;padding-left:12px}
+h3{font-size:19px;margin-top:28px}
+p,li{font-size:15px;line-height:1.85}
+blockquote{margin:18px 0;padding:12px 16px;border-left:5px solid #60a5fa;background:#eff6ff;color:#334155}
+table{border-collapse:collapse;width:100%;margin:16px 0}
+th,td{border:1px solid #e5e7eb;padding:10px 12px;text-align:left;vertical-align:top;font-size:14px}
+th{background:#f8fafc;color:#334155}
+pre{background:#0f172a;color:#e2e8f0;padding:16px;border-radius:14px;overflow:auto;line-height:1.6}
+code{font-family:Consolas,monospace;background:#f1f5f9;padding:2px 6px;border-radius:6px}
+pre code{background:transparent;padding:0}
+.note{background:#f8fafc;border:1px solid #e5e7eb;border-radius:14px;padding:14px 16px;margin-bottom:26px;color:#475569}
+.update{background:#fff7ed;border:1px solid #fed7aa;border-radius:16px;padding:18px 20px;margin:22px 0 30px}
+.update h2{margin-top:0;border-left-color:#f97316}
+.ok{color:#067647;font-weight:700}.warn{color:#b42318;font-weight:700}
+@media print{body{background:#fff}.wrap{box-shadow:none;max-width:none}.note{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="note"><b>阅读提示：</b>本文档已根据 2026-06-25 本轮 demo 修改同步更新，可用于产品评审、研发对齐和后续需求确认。</div>
+<h1>福返返 MVP 内部产品说明</h1>
+<blockquote>
+<p>文档用途：内部评审 / 产品沟通 / 前端实现对齐<br>产品名称：福返返<br>当前阶段：MVP 视觉设计与需求确认<br>文档版本：V1.2</p>
+</blockquote>
+
+<div class="update">
+<h2>本轮修改内容</h2>
+<h3>规则模板</h3>
+<ul>
+<li>规则模板固定为 3 类：满减返、比例返、新人返。</li>
+<li>满减返展示“返金额”，比例返展示“返比例”，新人返展示“返金额”。</li>
+<li>满减返、比例返不存在“新客条件”，列表、详情、编辑弹窗均不展示该字段。</li>
+<li>新人返保留“新客条件”，支持“首次参与福利卡返利 / 首次在门店消费”。</li>
+<li>三个模板均展示“单日返利默认预算 ¥”，详情与编辑弹窗需与各自模板字段一致。</li>
+</ul>
+<h3>活动管理</h3>
+<ul>
+<li>新增状态：草稿、待修改。</li>
+<li>草稿、待修改支持“查看、编辑”。</li>
+<li>已暂停活动新增“启用”按钮。</li>
+<li>查询条件新增玩法模板、操作人、活动开始日期、活动结束日期。</li>
+<li>列表新增玩法模板、操作人、开始日期、结束日期；列表不展示规则快照字段。</li>
+</ul>
+<h3>活动审核</h3>
+<ul>
+<li>查询条件新增玩法模板、操作人、活动开始日期、活动结束日期。</li>
+<li>列表新增玩法模板、操作人字段。</li>
+<li>驳回弹窗去掉审核建议。</li>
+</ul>
+<h3>交易监控</h3>
+<ul>
+<li>列表新增交易日期。</li>
+<li>查询条件新增交易日期，并支持重置查询。</li>
+<li>处理状态增加“已忽略”。</li>
+<li>异常状态新增“处理”按钮，点击跳转异常处理。</li>
+<li>命中交易操作列增加“快照”按钮。</li>
+<li>交易详情中的“规则快照”调整为“规则内容”。</li>
+</ul>
+<h3>异常处理</h3>
+<ul>
+<li>列表新增交易日期、门店/商户字段。</li>
+<li>查询条件新增交易日期。</li>
+<li>已忽略状态不展示操作按钮。</li>
+</ul>
+<h3>门店管理、商户列表、退款/冲正</h3>
+<ul>
+<li>门店管理全局去掉品类；导入方式只保留 Excel 导入；待完善状态对应营销状态为“不允许”。</li>
+<li>商户列表去掉品类，新增钱包余额，开通账号直接提示成功，不弹窗。</li>
+<li>退款/冲正新增交易日期及对应筛选，并增加重置按钮。</li>
+</ul>
+</div>
+
+<h2>1. 产品定位</h2>
+<p>福返返是面向福利卡消费场景的<strong>业务营销一体化平台</strong>，用于承接交易同步、商户与门店基础资料、营销活动配置、规则判断、返利跟踪、异常处理和退款 / 冲正查询。</p>
+<blockquote>
+<p><strong>福返返负责福利卡消费后的业务处理、营销活动配置、规则内容留存、返利状态跟踪和运营异常处理。</strong></p>
+</blockquote>
+
+<h2>2. MVP 范围</h2>
+<table>
+<thead><tr><th>模块</th><th>本期包含</th></tr></thead>
+<tbody>
+<tr><td>总览</td><td>展示今日交易、进行中活动、异常数量、核心业务流程和运营看板。</td></tr>
+<tr><td>交易监控</td><td>支持按交易、商户、门店、营销结果、资金状态、处理状态、交易日期查询；列表展示交易日期、资金状态、返利状态和处理状态；详情展示命中活动与规则内容。</td></tr>
+<tr><td>商户列表</td><td>商户基础资料来自商户中台同步；列表展示钱包余额；运营可在每条商户数据后开通平台账号，开通后直接提示成功。</td></tr>
+<tr><td>门店管理</td><td>支持查询、新增、编辑、Excel 导入门店；门店活动时间内允许编辑门店信息；待完善门店的营销状态为不允许。</td></tr>
+<tr><td>规则模板</td><td>维护满减返、比例返、新人返三类模板字段和模板默认值。</td></tr>
+<tr><td>创建活动</td><td>基于模板创建活动，字段从模板回填并允许调整；可用门店通过弹窗选择全部门店或部分门店。</td></tr>
+<tr><td>活动管理</td><td>支持按状态、玩法模板、操作人、活动日期筛选；支持查看、编辑、暂停、启用、作废等状态操作。</td></tr>
+<tr><td>活动审核</td><td>审核活动基础信息、玩法模板、操作人、活动日期、用户文案、预算与活动规则。</td></tr>
+<tr><td>异常处理</td><td>处理营销判断失败、资金失败、返利失败；列表展示交易日期和门店/商户，支持忽略。</td></tr>
+<tr><td>退款 / 冲正</td><td>作为结果查询页，支持交易日期筛选，状态仅为成功 / 失败。</td></tr>
+</tbody>
+</table>
+
+<h2>3. 整体业务流程</h2>
+<pre><code>用户福利卡消费
+  → 发卡中台同步交易
+  → 福返返接收并展示交易
+  → 根据活动规则判断营销结果
+  → 命中活动后校验商户营销金额并处理资金状态
+  → 按返利时效给用户福利卡返利
+  → 记录资金状态、返利状态、处理状态、命中活动和规则内容</code></pre>
+
+<h2>4. 信息架构</h2>
+<pre><code>福返返
+├─ 工作台
+│  ├─ 总览
+│  ├─ 交易监控
+│  ├─ 门店管理
+│  └─ 商户列表
+├─ 营销
+│  ├─ 规则模板
+│  ├─ 活动管理
+│  ├─ 创建活动
+│  └─ 活动审核
+└─ 处理
+   ├─ 异常处理
+   └─ 退款/冲正</code></pre>
+
+<h2>5. 页面说明</h2>
+<h3>5.1 总览</h3>
+<table>
+<thead><tr><th>区域</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>指标卡</td><td>展示今日交易、进行中活动、异常数量。</td></tr>
+<tr><td>核心业务流程</td><td>展示发卡同步交易、福返返处理、资金处理、返利发放。</td></tr>
+<tr><td>运营看板</td><td>展示待审核活动、异常处理等运营事项。</td></tr>
+</tbody>
+</table>
+
+<h3>5.2 交易监控</h3>
+<table>
+<thead><tr><th>类型</th><th>内容</th></tr></thead>
+<tbody>
+<tr><td>查询条件</td><td>交易编号 / 商户 / 门店、营销结果、资金状态、处理状态、交易开始日期、交易结束日期。</td></tr>
+<tr><td>列表字段</td><td>交易编号、交易日期、商户/门店、金额、营销结果、应返、资金状态、返利状态、处理状态、操作。</td></tr>
+<tr><td>操作</td><td>详情、快照、处理。已命中交易展示快照；异常交易展示处理并跳转异常处理。</td></tr>
+<tr><td>详情</td><td>详情弹窗展示规则内容，不再使用“规则快照”作为字段名。</td></tr>
+</tbody>
+</table>
+
+<h3>5.3 商户列表</h3>
+<table>
+<thead><tr><th>字段 / 操作</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>查询条件</td><td>商户名称 / 编号、营销状态、账号状态，支持重置查询。</td></tr>
+<tr><td>列表字段</td><td>商户名称、商户编号、门店数、钱包余额、营销状态、账号状态、操作；不展示品类。</td></tr>
+<tr><td>开通账号</td><td>点击后直接提示开通成功，不弹窗；成功后关闭按钮。</td></tr>
+</tbody>
+</table>
+
+<h3>5.4 门店管理</h3>
+<table>
+<thead><tr><th>能力</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>查询条件</td><td>门店名称 / 终端号、商户、门店状态、营销状态，支持重置。</td></tr>
+<tr><td>字段</td><td>全局去掉品类。待完善状态对应营销状态为“不允许”。</td></tr>
+<tr><td>编辑</td><td>门店活动时间内允许编辑门店信息。启用/停用按钮移动到操作列。</td></tr>
+<tr><td>导入</td><td>只保留 Excel 导入；下载模板命名为“导入门店模板”；错误数据导入后为待完善；重复数据按“文件名+副本1、副本2...”命名；单次导入上限 100 条。</td></tr>
+</tbody>
+</table>
+
+<h3>5.5 规则模板</h3>
+<table>
+<thead><tr><th>模板</th><th>展示字段</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>满减返</td><td>满金额、返利方式、返金额、单人单日最高参与次数默认值、单人单日最高金额默认值、单日返利默认预算 ¥、返利时效、退款规则</td><td>不展示新客条件。</td></tr>
+<tr><td>比例返</td><td>满金额、返利方式、返比例、单人单日最高参与次数默认值、单人单日最高金额默认值、单日返利默认预算 ¥、返利时效、退款规则</td><td>不展示新客条件。</td></tr>
+<tr><td>新人返</td><td>满金额、返利方式、返金额、新客条件、单人单日最高参与次数默认值、单人单日最高金额默认值、单日返利默认预算 ¥、返利时效、退款规则</td><td>新客条件支持首次参与福利卡返利、首次在门店消费。</td></tr>
+</tbody>
+</table>
+
+<h3>5.6 创建活动</h3>
+<p>创建活动基于模板回填字段，运营可调整活动名称、玩法模板、返利方式、所属商户、可用门店、活动时间、满金额、返金额 / 返比例、参与限制、单日返利预算、活动总预算、预算耗尽动作和返利时效。</p>
+
+<h3>5.7 活动管理</h3>
+<table>
+<thead><tr><th>能力</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>查询条件</td><td>活动名称 / 商户、玩法模板、活动状态、操作人、活动开始日期、活动结束日期。</td></tr>
+<tr><td>列表字段</td><td>活动、商户、玩法模板、开始日期、结束日期、预算、操作人、状态、操作。</td></tr>
+<tr><td>状态</td><td>草稿、待审核、待修改、已上线、已暂停、已结束、已作废。</td></tr>
+<tr><td>操作规则</td><td>草稿/待修改支持查看、编辑；待审核/已上线支持查看、暂停、作废；已暂停支持查看、启用；已结束/已作废仅查看。</td></tr>
+</tbody>
+</table>
+
+<h3>5.8 活动审核</h3>
+<table>
+<thead><tr><th>区域</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>查询条件</td><td>活动名称 / 所属商户、审核状态、玩法模板、操作人、活动开始日期、活动结束日期。</td></tr>
+<tr><td>列表字段</td><td>活动、所属商户、玩法模板、活动开始日期、活动结束日期、操作人、备注/原因、状态、操作。</td></tr>
+<tr><td>操作</td><td>待审核活动支持详情、通过、驳回；已通过、已驳回活动支持查看详情。</td></tr>
+<tr><td>驳回</td><td>驳回弹窗不展示审核建议。</td></tr>
+</tbody>
+</table>
+
+<h3>5.9 异常处理</h3>
+<table>
+<thead><tr><th>类型</th><th>内容</th></tr></thead>
+<tbody>
+<tr><td>查询条件</td><td>交易编号 / 商户 / 门店、交易日期、异常类型、状态。</td></tr>
+<tr><td>列表字段</td><td>异常类型、交易编号、交易日期、门店/商户、原因、状态、操作。</td></tr>
+<tr><td>操作</td><td>营销判断失败支持重新判断、忽略；资金失败支持重试资金、忽略；返利失败支持重试返利、忽略；已忽略无操作按钮。</td></tr>
+</tbody>
+</table>
+
+<h3>5.10 退款 / 冲正</h3>
+<table>
+<thead><tr><th>查询条件</th><th>列表字段</th><th>状态</th></tr></thead>
+<tbody>
+<tr><td>退款编号 / 原交易编号、商户、类型、状态、交易日期</td><td>退款 / 冲正编号、原交易、交易日期、商户 / 门店、类型、退款金额、追回返利、状态、处理时间</td><td>成功 / 失败</td></tr>
+</tbody>
+</table>
+
+<h2>6. 关键口径</h2>
+<ul>
+<li>规则模板维护默认值和模板边界；创建活动时作为活动字段回填。</li>
+<li>活动管理列表不展示规则快照字段，交易命中后在交易监控操作列查看快照。</li>
+<li>异常忽略视为人工关闭，已忽略状态不再展示操作按钮。</li>
+<li>门店待完善时营销状态为不允许。</li>
+<li>退款规则保留按比例追回、不追回两种。</li>
+</ul>
+</div>
+</body>
+</html>
