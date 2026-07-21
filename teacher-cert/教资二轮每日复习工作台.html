@@ -1,0 +1,629 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>教资二轮每日复习工作台</title>
+  <style>
+    :root {
+      --bg: #f3f6f4;
+      --panel: #ffffff;
+      --text: #18211f;
+      --muted: #66736f;
+      --line: #d5dfdb;
+      --green: #176b57;
+      --green-soft: #e7f3ef;
+      --blue: #285d8f;
+      --blue-soft: #eaf1f8;
+      --amber: #8c6119;
+      --amber-soft: #fff4d9;
+      --red: #a04444;
+      --shadow: 0 8px 24px rgba(31, 52, 46, 0.08);
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--text); font-family: "Microsoft YaHei", "PingFang SC", sans-serif; }
+    button, select, textarea, input { font: inherit; }
+    a { color: var(--blue); }
+    .shell { width: min(1040px, calc(100% - 32px)); margin: 0 auto; padding: 18px 0 48px; }
+    .topbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 12px; }
+    .top-links { display: flex; flex-wrap: wrap; gap: 14px; font-size: 14px; }
+    .date-nav { display: flex; align-items: center; gap: 8px; }
+    button, select { min-height: 40px; border: 1px solid var(--line); border-radius: 6px; background: #fff; color: var(--text); }
+    button { min-width: 40px; padding: 0 12px; cursor: pointer; color: var(--blue); font-weight: 800; }
+    button:disabled { cursor: default; opacity: 0.4; }
+    button:hover:not(:disabled) { border-color: var(--blue); }
+    select { min-width: 170px; padding: 0 10px; }
+    .hero { padding: 22px 24px; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; box-shadow: var(--shadow); }
+    .eyebrow { margin: 0 0 7px; color: var(--green); font-size: 14px; font-weight: 800; }
+    h1 { margin: 0 0 8px; font-size: 32px; line-height: 1.2; letter-spacing: 0; }
+    .subtitle { margin: 0; color: var(--muted); line-height: 1.65; }
+    .focus { display: inline-block; margin-top: 12px; padding: 6px 9px; border-radius: 5px; background: var(--blue-soft); color: var(--blue); font-size: 13px; font-weight: 800; }
+    .progress-panel { margin: 12px 0; padding: 15px 18px; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; }
+    .progress-head { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 8px; }
+    .progress-track { height: 11px; overflow: hidden; border-radius: 6px; background: #e3e9e6; }
+    .progress-fill { width: 0; height: 100%; background: var(--green); transition: width 180ms ease; }
+    .task-list { display: grid; gap: 10px; }
+    .task { display: grid; grid-template-columns: 150px minmax(0, 1fr) 44px; gap: 16px; align-items: start; padding: 18px; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; box-shadow: var(--shadow); }
+    .task.done { background: #f0f5f3; color: #6c7773; }
+    .task.done .task-content { text-decoration: line-through; text-decoration-thickness: 1px; }
+    .time strong { display: block; margin-bottom: 3px; color: var(--blue); font-size: 15px; }
+    .time span { color: var(--muted); font-size: 13px; }
+    .task-content { font-size: 17px; font-weight: 800; line-height: 1.6; }
+    .task input { width: 22px; height: 22px; margin-top: 2px; accent-color: var(--green); }
+    .task-entry { display:table; margin-top:7px; padding:5px 8px; border:1px solid #b9cee1; border-radius:5px; background:var(--blue-soft); color:var(--blue); font-size:13px; text-decoration:none; }
+    .resource-panel { margin:12px 0; padding:20px 22px; background:var(--panel); border:1px solid var(--line); border-top:4px solid var(--blue); border-radius:8px; box-shadow:var(--shadow); }
+    .resource-head { display:flex; justify-content:space-between; align-items:flex-start; gap:16px; margin-bottom:14px; }
+    .resource-head h2 { margin:2px 0 5px; font-size:24px; }
+    .resource-hint { margin:0; color:var(--muted); line-height:1.6; }
+    .resource-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+    .resource-block { padding:15px; border:1px solid var(--line); border-radius:7px; background:#fbfcfc; }
+    .resource-block h3 { margin:0 0 10px; font-size:17px; }
+    .resource-item { padding:11px 0; border-top:1px solid var(--line); }
+    .resource-item:first-of-type { padding-top:0; border-top:0; }
+    .resource-title { margin:0 0 5px; font-weight:800; line-height:1.55; }
+    .resource-note { margin:0; color:var(--muted); font-size:13px; line-height:1.55; }
+    .resource-links { display:flex; flex-wrap:wrap; gap:8px; margin-top:8px; }
+    .resource-links a, .resource-index { display:inline-flex; flex-direction:column; justify-content:center; min-height:34px; padding:5px 10px; border:1px solid #b9cee1; border-radius:5px; background:var(--blue-soft); color:var(--blue); font-size:13px; font-weight:800; text-decoration:none; }
+    .resource-pages { display:block; margin-top:2px; color:var(--muted); font-size:12px; font-weight:400; }
+    .resource-empty { margin:0; color:var(--muted); line-height:1.6; }
+    .short-answer-panel { margin:12px 0; padding:20px 22px; background:var(--panel); border:1px solid var(--line); border-top:4px solid var(--green); border-radius:8px; box-shadow:var(--shadow); }
+    .short-answer-head { display:flex; justify-content:space-between; align-items:flex-start; gap:16px; }
+    .short-answer-head h2 { margin:2px 0 5px; font-size:24px; }
+    .short-answer-count { padding:5px 8px; border-radius:5px; background:var(--green-soft); color:var(--green); font-size:13px; font-weight:800; white-space:nowrap; }
+    .short-answer-hint { margin:0; color:var(--muted); line-height:1.6; }
+    .short-answer-actions { display:flex; flex-wrap:wrap; gap:8px; margin:13px 0; }
+    .short-answer-actions button { min-height:34px; }
+    .short-answer-list { border-top:1px solid var(--line); }
+    .short-answer-item { padding:13px 2px; border-bottom:1px solid var(--line); }
+    .short-answer-item summary { cursor:pointer; font-weight:800; line-height:1.55; }
+    .short-answer-item details[open] summary { color:var(--blue); }
+    .short-answer-chapter { display:block; margin:5px 0 0; color:var(--muted); font-size:12px; font-weight:400; }
+    .short-answer-item ol { margin:11px 0 0; padding-left:24px; line-height:1.75; }
+    .short-answer-mnemonic { margin:10px 0 0; padding:9px 11px; border-left:4px solid var(--amber); background:var(--amber-soft); color:#6d4b12; font-weight:800; line-height:1.6; }
+    .short-answer-full { display:inline-block; margin-top:13px; font-size:13px; font-weight:800; }
+    [hidden] { display:none !important; }
+    .material-panel { margin: 12px 0; padding: 20px 22px; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; box-shadow: var(--shadow); }
+    .material-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 14px; }
+    .material-head h2 { margin: 2px 0 0; font-size: 25px; }
+    .material-count { color: var(--muted); font-size: 13px; font-weight: 800; white-space: nowrap; }
+    .theme-list { display: flex; flex-wrap: wrap; gap: 7px; margin: 0 0 16px; }
+    .theme-tag { padding: 5px 8px; border-radius: 5px; background: var(--blue-soft); color: var(--blue); font-size: 13px; font-weight: 800; }
+    .material-grid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); gap: 18px; }
+    .material-block h3 { margin: 0 0 6px; color: var(--muted); font-size: 13px; }
+    .material-block p { margin: 0; line-height: 1.75; }
+    .memory-sentence { margin-top: 16px; padding: 13px 15px; border-left: 4px solid var(--amber); background: var(--amber-soft); color: #654711; line-height: 1.7; font-weight: 800; }
+    .material-source { margin: 10px 0 0; color: var(--muted); font-size: 12px; }
+    .knowledge-panel { margin: 12px 0; padding: 20px 22px; background: var(--panel); border: 1px solid var(--line); border-top: 4px solid var(--blue); border-radius: 8px; box-shadow: var(--shadow); }
+    .knowledge-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 12px; }
+    .knowledge-head h2 { margin: 2px 0 0; font-size: 23px; line-height: 1.35; }
+    .knowledge-round { padding: 5px 8px; border-radius: 5px; background: var(--blue-soft); color: var(--blue); font-size: 13px; font-weight: 800; white-space: nowrap; }
+    .knowledge-points { margin: 0; padding-left: 23px; line-height: 1.75; }
+    .knowledge-clues { margin: 14px 0 0; padding: 11px 13px; border-left: 4px solid var(--green); background: var(--green-soft); color: #205647; line-height: 1.7; }
+    .knowledge-memory { margin: 10px 0 0; color: var(--amber); font-weight: 800; }
+    .knowledge-link { display: inline-block; margin-top: 12px; font-size: 13px; font-weight: 800; }
+    .result { margin-top: 12px; padding: 16px 18px; background: var(--green-soft); border: 1px solid #c7dfd6; border-radius: 8px; color: #205647; line-height: 1.65; }
+    .result strong { display: block; margin-bottom: 4px; }
+    .rest-band { margin-top: 12px; padding: 15px 18px; background: var(--amber-soft); border: 1px solid #ecd39a; border-radius: 8px; color: #725015; }
+    .workspace { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(250px, 0.75fr); gap: 12px; margin-top: 12px; }
+    .panel { padding: 18px; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; box-shadow: var(--shadow); }
+    .panel h2 { margin: 0 0 10px; font-size: 19px; }
+    textarea { width: 100%; min-height: 170px; resize: vertical; padding: 12px; border: 1px solid var(--line); border-radius: 6px; color: var(--text); line-height: 1.6; }
+    .mistake-panel { margin-top: 12px; }
+    .mistake-grid { display: grid; grid-template-columns: minmax(220px, 0.75fr) minmax(0, 1.25fr); gap: 12px; }
+    .field { display: grid; gap: 7px; }
+    .field-label { color: var(--muted); font-size: 13px; font-weight: 800; }
+    .field input { width: 100%; min-height: 44px; padding: 0 12px; border: 1px solid var(--line); border-radius: 6px; color: var(--text); background: #fff; }
+    .field textarea { min-height: 92px; }
+    .actions { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+    .primary { background: var(--green); border-color: var(--green); color: #fff; }
+    .danger { color: var(--red); }
+    .link-list { display: grid; gap: 9px; }
+    .link-list a { padding: 9px 10px; background: #f7f9f8; border: 1px solid var(--line); border-radius: 5px; text-decoration: none; }
+    .status { margin: 10px 0 0; color: var(--muted); font-size: 13px; }
+    @media (max-width: 720px) {
+      .shell { width: min(100% - 20px, 1040px); padding-top: 10px; }
+      .topbar { align-items: flex-start; flex-direction: column; }
+      .date-nav { width: 100%; display: grid; grid-template-columns: 40px minmax(0, 1fr) 40px; }
+      select { min-width: 0; width: 100%; }
+      .hero { padding: 18px; }
+      h1 { font-size: 27px; }
+      .task { grid-template-columns: 1fr 32px; gap: 10px; }
+      .time { grid-column: 1 / -1; }
+      .task-content { font-size: 16px; }
+      .task input { grid-column: 2; grid-row: 2; }
+      .resource-panel { padding:17px; }
+      .resource-grid { grid-template-columns:1fr; }
+      .short-answer-panel { padding:17px; }
+      .short-answer-head { align-items:flex-start; }
+      .short-answer-head h2 { font-size:21px; }
+      .material-panel { padding: 17px; }
+      .material-head h2 { font-size: 22px; }
+      .material-grid { grid-template-columns: 1fr; gap: 14px; }
+      .knowledge-panel { padding: 17px; }
+      .knowledge-head { align-items: flex-start; }
+      .knowledge-head h2 { font-size: 20px; }
+      .workspace { grid-template-columns: 1fr; }
+      .mistake-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <nav class="top-links" aria-label="页面导航">
+        <a href="./教资二轮复习计划工作台.html">返回二轮总览</a>
+        <a href="./当前执行版学习计划.txt">当前执行版</a>
+        <a href="https://www.fenbi.com/spa/pwa/episodes/795097" target="_blank" rel="noopener">粉笔网课</a>
+        <a href="./科目二教育教学知识与能力备考/90_主观题与答题技巧/科目二简答题反问工作台.html">科二简答反问</a>
+        <a href="./科目二教育教学知识与能力备考/90_主观题与答题技巧/科目二材料分析题必备考点反问工作台.html">科二材料题反问</a>
+      </nav>
+      <div class="date-nav">
+        <button id="previousDay" type="button" title="前一个学习日" aria-label="前一个学习日">←</button>
+        <select id="dateSelect" aria-label="选择学习日期"></select>
+        <button id="nextDay" type="button" title="后一个学习日" aria-label="后一个学习日">→</button>
+      </div>
+    </header>
+
+    <section class="hero">
+      <p class="eyebrow" id="weekLabel">第 1 周 · 每日入口</p>
+      <h1 id="dateTitle">2026-07-20 周一</h1>
+      <p class="subtitle">完成今天的三个时段，再用 10 分钟记住一个写作素材。当天未完成的任务不挪到晚上，也不挪到周末。</p>
+      <span class="focus" id="focusLabel">核心启动</span>
+    </section>
+
+    <section class="progress-panel" aria-label="今日完成进度">
+      <div class="progress-head"><strong>今日完成度</strong><span id="progressText">0 / 4</span></div>
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    </section>
+
+    <section class="task-list" id="taskList" aria-label="今日任务">
+      <label class="task" data-task="morning">
+        <span class="time"><strong>早晨</strong><span>07:30-08:20</span></span>
+        <span class="task-content" id="morningTask"></span>
+        <input type="checkbox" aria-label="完成早晨任务">
+      </label>
+      <label class="task" data-task="am">
+        <span class="time"><strong>上午</strong><span>09:00-11:00</span></span>
+        <span class="task-content" id="amTask"></span>
+        <input type="checkbox" aria-label="完成上午任务">
+      </label>
+      <label class="task" data-task="pm">
+        <span class="time"><strong>下午</strong><span>14:00-16:00</span></span>
+        <span class="task-content" id="pmTask"></span>
+        <input type="checkbox" aria-label="完成下午任务">
+      </label>
+      <label class="task" data-task="material">
+        <span class="time"><strong>素材积累</strong><span>08:20-08:30</span></span>
+        <span class="task-content">读卡片并脱稿复述：什么人 + 什么事 + 能证明什么观点</span>
+        <input type="checkbox" aria-label="完成今日写作素材积累">
+      </label>
+    </section>
+
+    <section class="resource-panel" id="todayResources" aria-labelledby="resourceTitle">
+      <div class="resource-head">
+        <div>
+          <p class="eyebrow">刷题班固定入口</p>
+          <h2 id="resourceTitle">今日课程与题库</h2>
+          <p class="resource-hint">回放可直接进入粉笔课程页，再按当天课名打开；题本和解析可跳到对应页。</p>
+        </div>
+        <a class="resource-index" href="./教资刷题班资料/刷题班资料索引.txt">完整资料索引</a>
+      </div>
+      <div class="resource-grid">
+        <section class="resource-block">
+          <h3>今日回放</h3>
+          <div id="courseList"></div>
+        </section>
+        <section class="resource-block">
+          <h3>今日题本与解析</h3>
+          <div id="practiceList"></div>
+        </section>
+      </div>
+    </section>
+
+    <section class="short-answer-panel" id="shortAnswerPanel" aria-labelledby="shortAnswerTitle" hidden>
+      <div class="short-answer-head">
+        <div>
+          <p class="eyebrow">今日简答背诵内容</p>
+          <h2 id="shortAnswerTitle"></h2>
+          <p class="short-answer-hint">先只看题目脱稿口答，再点开答案核对漏点。</p>
+        </div>
+        <span class="short-answer-count" id="shortAnswerCount"></span>
+      </div>
+      <div class="short-answer-actions">
+        <button id="openShortAnswers" type="button">展开全部答案</button>
+        <button id="closeShortAnswers" type="button">收起全部答案</button>
+      </div>
+      <div class="short-answer-list" id="shortAnswerList"></div>
+      <a class="short-answer-full" href="./科目二教育教学知识与能力备考/90_主观题与答题技巧/科目二简答题反问工作台.html">进入完整 47 道简答反问工作台</a>
+    </section>
+
+    <section class="material-panel" aria-labelledby="materialName">
+      <div class="material-head">
+        <div>
+          <p class="eyebrow" id="materialCategory">每日写作素材</p>
+          <h2 id="materialName"></h2>
+        </div>
+        <span class="material-count" id="materialCount"></span>
+      </div>
+      <div class="theme-list" id="materialThemes" aria-label="适用主题"></div>
+      <div class="material-grid">
+        <div class="material-block">
+          <h3>核心事迹</h3>
+          <p id="materialStory"></p>
+        </div>
+        <div class="material-block">
+          <h3>可论证观点</h3>
+          <p id="materialPoint"></p>
+        </div>
+      </div>
+      <div class="memory-sentence"><span class="field-label">记忆句</span><br><span id="materialSentence"></span></div>
+      <p class="material-source" id="materialSource"></p>
+    </section>
+
+    <section class="knowledge-panel" aria-labelledby="knowledgeTitle">
+      <div class="knowledge-head">
+        <div>
+          <p class="eyebrow" id="knowledgeAngle">每日科二材料题考点</p>
+          <h2 id="knowledgeTitle"></h2>
+        </div>
+        <span class="knowledge-round" id="knowledgeRound"></span>
+      </div>
+      <ol class="knowledge-points" id="knowledgePoints"></ol>
+      <p class="knowledge-clues"><strong>材料识别词：</strong><span id="knowledgeClues"></span></p>
+      <p class="knowledge-memory" id="knowledgeMemory"></p>
+      <a class="knowledge-link" href="./科目二教育教学知识与能力备考/90_主观题与答题技巧/科目二材料分析题必备考点反问工作台.html">进入完整材料题反问工作台</a>
+    </section>
+
+    <section class="result">
+      <strong>当日验收</strong>
+      <span id="checkText"></span>
+    </section>
+
+    <section class="rest-band"><strong>16:00 后停止学习。</strong> 晚上休息，不安排补任务；周末也不回收工作日进度。</section>
+
+    <section class="panel mistake-panel">
+      <h2>每日易错知识点</h2>
+      <div class="mistake-grid">
+        <label class="field">
+          <span class="field-label">今天最容易错的知识点</span>
+          <input id="mistakePoint" type="text" placeholder="例如：惩罚与负强化的区别">
+        </label>
+        <label class="field">
+          <span class="field-label">正确辨析与识别词</span>
+          <textarea id="mistakeFix" placeholder="写清楚：为什么会错、正确结论、下次看到什么词就能识别。"></textarea>
+        </label>
+      </div>
+    </section>
+
+    <section class="workspace">
+      <section class="panel">
+        <h2>今日复盘</h2>
+        <textarea id="dailyNote" placeholder="只写三点：&#10;1. 今天完成了什么？&#10;2. 哪个知识点最卡？&#10;3. 下一个工作日先看什么？"></textarea>
+        <div class="actions">
+          <button class="primary" id="completeAll" type="button">完成今日四项</button>
+          <button class="danger" id="clearDay" type="button">清空今日记录</button>
+        </div>
+        <p class="status" id="saveStatus">勾选和复盘会自动保存在本机。</p>
+      </section>
+
+      <aside class="panel">
+        <h2>固定资料入口</h2>
+        <nav class="link-list">
+          <a href="https://www.fenbi.com/spa/pwa/episodes/795097" target="_blank" rel="noopener">粉笔刷题班网课</a>
+          <a href="./科目一综合素质备考/00_总入口/复习地图.txt">科一复习地图</a>
+          <a href="./科目二教育教学知识与能力备考/00_总入口/复习地图.txt">科二复习地图</a>
+          <a href="./科目二教育教学知识与能力备考/90_主观题与答题技巧/科目二简答题反问工作台.html">科二 47 道简答反问</a>
+          <a href="./科目二教育教学知识与能力备考/90_主观题与答题技巧/科目二材料分析题必备考点反问工作台.html">科二材料题 18 组必备考点</a>
+          <a href="./科目一综合素质备考/05_基本能力/写作/作文42人物素材每日清单.txt">作文 42 人物素材完整清单</a>
+          <a href="./教资刷题班资料/刷题班资料索引.txt">刷题班题本与解析索引</a>
+          <a href="./教资备考学习计划-2026-09-12考试.txt">完整 40 天文字计划</a>
+        </nav>
+      </aside>
+    </section>
+  </main>
+
+  <script src="./教资二轮复习计划数据.js"></script>
+  <script src="./科一作文人物素材数据.js"></script>
+  <script src="./科目二教育教学知识与能力备考/90_主观题与答题技巧/科目二简答题数据.js"></script>
+  <script src="./科目二教育教学知识与能力备考/90_主观题与答题技巧/科目二材料分析题必备考点数据.js"></script>
+  <script>
+    const schedule = window.teacherCertSchedule;
+    const writingMaterials = window.teacherWritingMaterials;
+    const shortAnswerQuestions = window.teacherShortAnswerQuestions;
+    const dailyShortAnswerPlan = window.teacherDailyShortAnswerPlan;
+    const materialAnalysisPoints = window.teacherMaterialAnalysisPoints;
+    const overviewStorageKey = 'teacher-cert-phase2-plan-2026-v2';
+    const params = new URLSearchParams(window.location.search);
+    const requestedDate = params.get('date');
+    const today = new Date();
+    const todayText = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+    let currentIndex = schedule.findIndex(item => item.date === requestedDate);
+
+    if (currentIndex < 0) {
+      currentIndex = schedule.findIndex(item => item.date === todayText);
+      if (currentIndex < 0) currentIndex = schedule.findIndex(item => item.date > todayText);
+      if (currentIndex < 0) currentIndex = schedule.length - 1;
+    }
+
+    const dateSelect = document.querySelector('#dateSelect');
+    schedule.forEach((item, index) => {
+      const option = document.createElement('option');
+      option.value = item.date;
+      option.textContent = `${item.date} ${item.day} · ${item.focus}`;
+      option.selected = index === currentIndex;
+      dateSelect.appendChild(option);
+    });
+
+    function dailyStorageKey(date) {
+      return `teacher-cert-daily-v2-${date}`;
+    }
+
+    function loadState(date) {
+      const saved = JSON.parse(localStorage.getItem(dailyStorageKey(date)) || 'null');
+      const overviewDone = new Set(JSON.parse(localStorage.getItem(overviewStorageKey) || '[]')).has(date);
+      if (saved) return { ...saved, material: saved.material ?? overviewDone };
+      const previous = JSON.parse(localStorage.getItem(`teacher-cert-daily-${date}`) || 'null');
+      return { morning: overviewDone, am: overviewDone, pm: overviewDone, material: overviewDone, note: previous?.note || '' };
+    }
+
+    function saveState(item, state) {
+      localStorage.setItem(dailyStorageKey(item.date), JSON.stringify(state));
+      const overviewDone = new Set(JSON.parse(localStorage.getItem(overviewStorageKey) || '[]'));
+      const isComplete = state.morning && state.am && state.pm && state.material;
+      if (isComplete) overviewDone.add(item.date); else overviewDone.delete(item.date);
+      localStorage.setItem(overviewStorageKey, JSON.stringify(Array.from(overviewDone)));
+      document.querySelector('#saveStatus').textContent = isComplete ? '今日已完成，并已同步到二轮总览。' : '已自动保存；完成四项后同步到二轮总览。';
+    }
+
+    function updateProgress(state) {
+      const count = ['morning', 'am', 'pm', 'material'].filter(key => state[key]).length;
+      document.querySelector('#progressText').textContent = `${count} / 4`;
+      document.querySelector('#progressFill').style.width = `${count / 4 * 100}%`;
+    }
+
+    function setTaskContent(key, text, shortAnswerAssignment) {
+      const container = document.querySelector(`#${key}Task`);
+      container.replaceChildren(document.createTextNode(text));
+      if (!shortAnswerAssignment || !text.includes('简答')) return;
+      const entry = document.createElement('a');
+      entry.className = 'task-entry';
+      entry.href = '#shortAnswerPanel';
+      entry.textContent = `查看今日 ${shortAnswerAssignment.ids.length} 道简答题`;
+      entry.addEventListener('click', event => event.stopPropagation());
+      container.appendChild(entry);
+    }
+
+    function renderShortAnswers(item) {
+      const assignment = dailyShortAnswerPlan[item.date];
+      const panel = document.querySelector('#shortAnswerPanel');
+      panel.hidden = !assignment;
+      if (!assignment) return;
+      const questions = assignment.ids.map(id => shortAnswerQuestions.find(question => question.id === id)).filter(Boolean);
+      document.querySelector('#shortAnswerTitle').textContent = assignment.label;
+      document.querySelector('#shortAnswerCount').textContent = `${questions.length} 道`;
+      const list = document.querySelector('#shortAnswerList');
+      list.replaceChildren(...questions.map(question => {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'short-answer-item';
+        const details = document.createElement('details');
+        const summary = document.createElement('summary');
+        summary.appendChild(document.createTextNode(`${question.id}. ${question.question}`));
+        const chapter = document.createElement('span');
+        chapter.className = 'short-answer-chapter';
+        chapter.textContent = question.chapter;
+        summary.appendChild(chapter);
+        const answerList = document.createElement('ol');
+        answerList.replaceChildren(...question.answers.map(answer => {
+          const answerItem = document.createElement('li');
+          answerItem.textContent = answer;
+          return answerItem;
+        }));
+        details.append(summary, answerList);
+        if (question.mnemonic) {
+          const mnemonic = document.createElement('p');
+          mnemonic.className = 'short-answer-mnemonic';
+          mnemonic.textContent = question.mnemonic;
+          details.appendChild(mnemonic);
+        }
+        wrapper.appendChild(details);
+        return wrapper;
+      }));
+    }
+
+    function renderResources(item) {
+      const courseList = document.querySelector('#courseList');
+      const practiceList = document.querySelector('#practiceList');
+      const courses = item.courses || [];
+      const practices = item.practices || [];
+
+      if (courses.length) {
+        courseList.replaceChildren(...courses.map(course => {
+          const article = document.createElement('article');
+          article.className = 'resource-item';
+          const title = document.createElement('p');
+          title.className = 'resource-title';
+          title.textContent = course.subject + ' · ' + course.title;
+          const note = document.createElement('p');
+          note.className = 'resource-note';
+          note.textContent = course.note;
+          article.append(title, note);
+          if (course.href) {
+            const links = document.createElement('div');
+            links.className = 'resource-links';
+            const anchor = document.createElement('a');
+            anchor.href = course.href;
+            anchor.target = '_blank';
+            anchor.rel = 'noopener';
+            anchor.textContent = '打开粉笔网课';
+            links.appendChild(anchor);
+            article.appendChild(links);
+          }
+          return article;
+        }));
+      } else {
+        const empty = document.createElement('p');
+        empty.className = 'resource-empty';
+        empty.textContent = '今天没有新增回放，按计划完成模拟、主观题或专项训练。';
+        courseList.replaceChildren(empty);
+      }
+
+      if (practices.length) {
+        practiceList.replaceChildren(...practices.map(practice => {
+          const article = document.createElement('article');
+          article.className = 'resource-item';
+          const title = document.createElement('p');
+          title.className = 'resource-title';
+          title.textContent = practice.subject + ' · ' + practice.title;
+          const note = document.createElement('p');
+          note.className = 'resource-note';
+          note.textContent = practice.target;
+          const links = document.createElement('div');
+          links.className = 'resource-links';
+          links.replaceChildren(...practice.links.map(resource => {
+            const anchor = document.createElement('a');
+            anchor.href = resource.href;
+            anchor.target = '_blank';
+            anchor.rel = 'noopener';
+            anchor.textContent = resource.label;
+            const pages = document.createElement('span');
+            pages.className = 'resource-pages';
+            pages.textContent = resource.pages;
+            anchor.appendChild(pages);
+            return anchor;
+          }));
+          article.append(title, note, links);
+          return article;
+        }));
+      } else {
+        const empty = document.createElement('p');
+        empty.className = 'resource-empty';
+        empty.textContent = '今天没有指定新题本；按上方任务完成模拟、订正或回炉。';
+        practiceList.replaceChildren(empty);
+      }
+    }
+
+    function getDailyKnowledge(index) {
+      if (index < 18) return { pointIndex: index, round: `首轮 ${String(index + 1).padStart(2, '0')} / 18` };
+      if (index < 36) return { pointIndex: index - 18, round: `二刷 ${String(index - 17).padStart(2, '0')} / 18` };
+      const finalReview = [0, 1, 3, 4];
+      return { pointIndex: finalReview[index - 36], round: `考前回炉 ${index - 35} / 4` };
+    }
+
+    function renderDay() {
+      const item = schedule[currentIndex];
+      const material = writingMaterials[currentIndex];
+      const knowledgeAssignment = getDailyKnowledge(currentIndex);
+      const knowledge = materialAnalysisPoints[knowledgeAssignment.pointIndex];
+      const state = loadState(item.date);
+      document.title = `${item.date} 教资每日复习工作台`;
+      document.querySelector('#weekLabel').textContent = `第 ${item.week} 周 · 每日入口`;
+      document.querySelector('#dateTitle').textContent = `${item.date} ${item.day}`;
+      document.querySelector('#focusLabel').textContent = item.focus;
+      const shortAnswerAssignment = dailyShortAnswerPlan[item.date];
+      setTaskContent('morning', item.morning, shortAnswerAssignment);
+      setTaskContent('am', item.am, shortAnswerAssignment);
+      setTaskContent('pm', item.pm, shortAnswerAssignment);
+      renderResources(item);
+      renderShortAnswers(item);
+      document.querySelector('#checkText').textContent = item.check;
+      document.querySelector('#materialCategory').textContent = `每日写作素材 · ${material.category}`;
+      document.querySelector('#materialName').textContent = material.name;
+      document.querySelector('#materialCount').textContent = `${String(currentIndex + 1).padStart(2, '0')} / ${schedule.length}`;
+      document.querySelector('#materialStory').textContent = material.story;
+      document.querySelector('#materialPoint').textContent = material.point;
+      document.querySelector('#materialSentence').textContent = material.sentence;
+      document.querySelector('#materialSource').textContent = `来源：《26上作文42个人物素材》第 ${material.page} 页`;
+      const themeList = document.querySelector('#materialThemes');
+      themeList.replaceChildren(...material.themes.split('、').map(theme => {
+        const tag = document.createElement('span');
+        tag.className = 'theme-tag';
+        tag.textContent = theme;
+        return tag;
+      }));
+      document.querySelector('#knowledgeAngle').textContent = `每日科二材料题考点 · ${knowledge.angle}`;
+      document.querySelector('#knowledgeTitle').textContent = knowledge.title;
+      document.querySelector('#knowledgeRound').textContent = knowledgeAssignment.round;
+      document.querySelector('#knowledgeClues').textContent = knowledge.clues;
+      document.querySelector('#knowledgeMemory').textContent = knowledge.memory;
+      document.querySelector('#knowledgePoints').replaceChildren(...knowledge.items.map(point => {
+        const listItem = document.createElement('li');
+        listItem.textContent = point;
+        return listItem;
+      }));
+      document.querySelector('#dailyNote').value = state.note || '';
+      document.querySelector('#mistakePoint').value = state.mistakePoint || '';
+      document.querySelector('#mistakeFix').value = state.mistakeFix || '';
+      dateSelect.value = item.date;
+      document.querySelector('#previousDay').disabled = currentIndex === 0;
+      document.querySelector('#nextDay').disabled = currentIndex === schedule.length - 1;
+
+      document.querySelectorAll('.task').forEach(task => {
+        const key = task.dataset.task;
+        const checkbox = task.querySelector('input');
+        checkbox.checked = Boolean(state[key]);
+        task.classList.toggle('done', Boolean(state[key]));
+        checkbox.onchange = () => {
+          state[key] = checkbox.checked;
+          task.classList.toggle('done', checkbox.checked);
+          updateProgress(state);
+          saveState(item, state);
+        };
+      });
+
+      document.querySelector('#dailyNote').oninput = event => {
+        state.note = event.target.value;
+        saveState(item, state);
+      };
+      document.querySelector('#mistakePoint').oninput = event => {
+        state.mistakePoint = event.target.value;
+        saveState(item, state);
+      };
+
+      document.querySelector('#mistakeFix').oninput = event => {
+        state.mistakeFix = event.target.value;
+        saveState(item, state);
+      };
+
+      document.querySelector('#completeAll').onclick = () => {
+        state.morning = true;
+        state.am = true;
+        state.pm = true;
+        state.material = true;
+        saveState(item, state);
+        renderDay();
+      };
+
+      document.querySelector('#clearDay').onclick = () => {
+        if (!window.confirm(`确定清空 ${item.date} 的勾选、易错知识点和复盘吗？`)) return;
+        localStorage.removeItem(dailyStorageKey(item.date));
+        const overviewDone = new Set(JSON.parse(localStorage.getItem(overviewStorageKey) || '[]'));
+        overviewDone.delete(item.date);
+        localStorage.setItem(overviewStorageKey, JSON.stringify(Array.from(overviewDone)));
+        renderDay();
+      };
+
+      updateProgress(state);
+      document.querySelector('#saveStatus').textContent = state.morning && state.am && state.pm && state.material ? '今日已完成，并已同步到二轮总览。' : '勾选和复盘会自动保存在本机。';
+    }
+
+    function goToIndex(index) {
+      const item = schedule[index];
+      window.location.href = `./教资二轮每日复习工作台.html?date=${item.date}`;
+    }
+
+    dateSelect.addEventListener('change', () => {
+      const index = schedule.findIndex(item => item.date === dateSelect.value);
+      goToIndex(index);
+    });
+    document.querySelector('#previousDay').addEventListener('click', () => goToIndex(currentIndex - 1));
+    document.querySelector('#nextDay').addEventListener('click', () => goToIndex(currentIndex + 1));
+    document.querySelector('#openShortAnswers').addEventListener('click', () => document.querySelectorAll('#shortAnswerList details').forEach(item => item.open = true));
+    document.querySelector('#closeShortAnswers').addEventListener('click', () => document.querySelectorAll('#shortAnswerList details').forEach(item => item.open = false));
+
+    renderDay();
+  </script>
+</body>
+</html>
+
+
+
