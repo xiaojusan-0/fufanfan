@@ -1,0 +1,42 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>教资科一选择题错题本</title>
+<style>
+:root{--bg:#f3f6f4;--panel:#fff;--text:#17211e;--muted:#64716d;--line:#d5dfdb;--green:#176b57;--green-soft:#e7f3ef;--blue:#285d8f;--blue-soft:#eaf1f8;--red:#9d3d3d;--red-soft:#faeceb}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:"Microsoft YaHei","PingFang SC",sans-serif}button,select,input{font:inherit}a{color:var(--blue)}.shell{width:min(1080px,calc(100% - 32px));margin:auto;padding:18px 0 48px}.top-links{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:12px;font-size:14px}.hero{padding:22px 24px;background:var(--panel);border:1px solid var(--line);border-radius:8px}.eyebrow{margin:0 0 7px;color:var(--green);font-size:14px;font-weight:800}h1{margin:0 0 8px;font-size:32px}.subtitle{margin:0;color:var(--muted);line-height:1.7}.stats{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin:12px 0}.stat{padding:15px;background:var(--panel);border:1px solid var(--line);border-radius:7px}.stat strong{display:block;color:var(--blue);font-size:25px}.stat span{color:var(--muted);font-size:13px}.toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:12px;padding:12px;background:var(--panel);border:1px solid var(--line);border-radius:7px}select,button{min-height:38px;padding:0 11px;border:1px solid var(--line);border-radius:6px;background:#fff}button{cursor:pointer;color:var(--blue);font-weight:800}.note{margin-left:auto;color:var(--muted);font-size:13px}.list{display:grid;gap:10px}.item{padding:18px 20px;background:var(--panel);border:1px solid var(--line);border-left:5px solid var(--red);border-radius:7px}.item.mastered{border-left-color:var(--green);background:#f7fbf9}.head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px}.number{margin:0 0 5px;color:var(--red);font-weight:800}.item.mastered .number{color:var(--green)}h2{margin:0;font-size:18px;line-height:1.65}.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}.tag{padding:4px 7px;border-radius:4px;background:var(--blue-soft);color:var(--blue);font-size:12px;font-weight:800}.tag.red{background:var(--red-soft);color:var(--red)}.answers{display:flex;gap:8px;white-space:nowrap}.answer{min-width:58px;padding:7px 8px;text-align:center;border-radius:5px;font-weight:800}.mine{background:var(--red-soft);color:var(--red)}.correct{background:var(--green-soft);color:var(--green)}.review{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:13px}.box{padding:12px 13px;background:#f8faf9;border:1px solid var(--line);border-radius:6px}.box strong{display:block;margin-bottom:5px;color:var(--green)}.box p{margin:0;line-height:1.65}.actions{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:13px;padding-top:12px;border-top:1px solid var(--line)}.actions label{display:flex;align-items:center;gap:6px;font-weight:800}.actions input{width:18px;height:18px;accent-color:var(--green)}.dates{margin-left:auto;color:var(--muted);font-size:13px}.empty{display:none;padding:28px;text-align:center;background:var(--panel);border:1px solid var(--line);color:var(--muted)}.empty.show{display:block}@media(max-width:780px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.head{display:block}.answers{margin-top:12px}.review{grid-template-columns:1fr}.note,.dates{width:100%;margin-left:0}}
+</style>
+</head>
+<body>
+<main class="shell">
+<nav class="top-links"><a href="./教资二轮复习计划工作台.html">二轮复习总览</a><a href="./教资二轮每日复习工作台.html?date=2026-07-22">今日任务</a><a href="./教资刷题班资料/2026下超全考点刷题-中小学-解析.pdf#page=5">科一解析</a></nav>
+<section class="hero"><p class="eyebrow">科一 · 综合素质 · 选择题错题本</p><h1>单选1：职业理念</h1><p class="subtitle">练习日期：2026年7月21日；登记日期：2026年7月22日。先回忆正确结论，再看识别词。选非题必须先圈出否定词。</p></section>
+<section class="stats"><article class="stat"><strong>50</strong><span>本次题量</span></article><article class="stat"><strong>39</strong><span>答对题数</span></article><article class="stat"><strong>11</strong><span>错题数量</span></article><article class="stat"><strong>78%</strong><span>最终正确率</span></article><article class="stat"><strong id="masteredCount">0 / 11</strong><span>已掌握</span></article></section>
+<section class="toolbar"><select id="category"><option value="">全部考点</option></select><select id="status"><option value="">全部状态</option><option value="pending">待回炉</option><option value="reviewed">已回炉</option><option value="mastered">已掌握</option></select><button id="pending" type="button">只看待回炉</button><span class="note">回炉节点：7月22日、7月23日、7月27日、8月3日</span></section>
+<section class="list" id="list"></section><p class="empty" id="empty">当前筛选下没有错题。</p>
+</main>
+<script>
+const questions=[
+{n:12,m:'C',c:'D',cat:'素质教育',type:'选非题审题',q:'学校提供烹饪、创意劳动、种植等课程套餐，并组织小组活动。下列说法不正确的是？',key:'混合式教学必须同时包含线上网络教学与线下面对面教学，题干未出现线上教学。',clue:'“不正确”先圈否定词；线上 + 线下 = 混合式教学。'},
+{n:14,m:'A',c:'B',cat:'教育政策',type:'知识遗忘',q:'全国教育大会推进教育改革发展的“九个坚持”，正确组合是哪一项？',key:'正确组合是①党对教育全面领导、②立德树人、⑤扎根中国大地、⑥教师队伍建设。',clue:'①②⑤⑥；排除“以提高教育质量为中心”。'},
+{n:20,m:'A',c:'D',cat:'学生身心发展',type:'概念混淆',q:'通过发展学生的长板来弥补短板，体现学生身心发展的什么规律？',key:'某方面优势补偿另一机能的不足，属于互补性。',clue:'长板补短板、扬长避短、长善救失 = 互补性。'},
+{n:28,m:'D',c:'C',cat:'素质教育',type:'选非题审题',q:'学生提出更简便的方法，教师批评并让其坐下听课。关于教师做法的表述，不正确的是？',key:'题干涉及创新意识、师生关系和主体性，没有涉及动手操作等实践能力。',clue:'实践能力：动手操作、课堂联系社会、理论联系实践。'},
+{n:36,m:'B',c:'A',cat:'教师专业发展',type:'概念混淆',q:'教师定期反思、分析和研究教学问题并最终解决，体现哪种专业发展途径？',key:'从教学问题出发，边研究、边实践、边修正，属于行动研究。',clue:'发现问题 → 研究 → 实践 → 修正 = 行动研究。'},
+{n:37,m:'C',c:'D',cat:'教师观',type:'知识遗忘',q:'习近平总书记提出的“四个引路人”是哪四个？',key:'锤炼品格、学习知识、创新思维、奉献祖国。',clue:'口诀：品知创奉。'},
+{n:38,m:'D',c:'A',cat:'教师劳动特点',type:'概念混淆',q:'教师既传播知识，又培养品德并促进德智体美劳全面发展，体现教师劳动的什么特点？',key:'教育目的全面、任务多样，体现教师劳动的复杂性。',clue:'知识 + 品德 + 全面发展 = 复杂性。'},
+{n:40,m:'B',c:'A',cat:'教师观',type:'材料识别',q:'三位教师面对不同学生却使用完全相同的导入、讨论题和教学过程，说明什么？',key:'不能照搬集体备课成果，应结合学情研究教学并创造性实施。',clue:'照搬教案、忽视学情 = 未积极探索教学艺术。'},
+{n:42,m:'A',c:'D',cat:'教师专业素养',type:'选非题审题',q:'“不能原谅老师的不学无术”，与这句话强调内容不相符的是哪一项？',key:'题干强调专业知识、态度和能力，没有体现专业自主。',clue:'“不相符”先圈出；专业自主 = 独立判断和选择自由。'},
+{n:44,m:'B',c:'A',cat:'学生观',type:'概念混淆',q:'教师用自己20分钟做完试卷来批评学生60分钟仍未完成，问题在哪里？',key:'忽视了学生与成人在观察、思考、选择和体验方面的巨大差异。',clue:'拿成人速度要求学生 = 忽视学生与成人的差异。'},
+{n:49,m:'A',c:'C',cat:'新课程改革',type:'材料识别',q:'学校设置多种选修课，为学生提供“课程超市”，体现课程结构的什么特点？',key:'多种课程供学生根据兴趣和发展需求自主选择，体现选择性。',clue:'课程超市、选修、自主挑选 = 选择性。'}
+];
+const storageKey='teacher-cert-wrong-book-v1',state=JSON.parse(localStorage.getItem(storageKey)||'{}'),list=document.querySelector('#list'),category=document.querySelector('#category'),status=document.querySelector('#status');
+[...new Set(questions.map(x=>x.cat))].forEach(x=>{const o=document.createElement('option');o.value=x;o.textContent=x;category.appendChild(o)});
+function stateOf(n){return state[n]?.mastered?'mastered':state[n]?.reviewed?'reviewed':'pending'}
+function save(){localStorage.setItem(storageKey,JSON.stringify(state));render()}
+function render(){const visible=questions.filter(x=>(!category.value||x.cat===category.value)&&(!status.value||stateOf(x.n)===status.value));list.replaceChildren(...visible.map(x=>{const a=document.createElement('article');a.className='item '+(state[x.n]?.mastered?'mastered':'');a.innerHTML=`<div class="head"><div><p class="number">第 ${x.n} 题</p><h2>${x.q}</h2><div class="tags"><span class="tag">${x.cat}</span><span class="tag red">${x.type}</span></div></div><div class="answers"><span class="answer mine">我的 ${x.m}</span><span class="answer correct">正确 ${x.c}</span></div></div><div class="review"><div class="box"><strong>正确结论</strong><p>${x.key}</p></div><div class="box"><strong>下次识别词</strong><p>${x.clue}</p></div></div><div class="actions"><label><input type="checkbox" data-k="reviewed" ${state[x.n]?.reviewed?'checked':''}>已回炉</label><label><input type="checkbox" data-k="mastered" ${state[x.n]?.mastered?'checked':''}>已掌握</label><span class="dates">7月22日 → 7月23日 → 7月27日 → 8月3日</span></div>`;a.querySelectorAll('input').forEach(i=>i.onchange=()=>{state[x.n]=state[x.n]||{};state[x.n][i.dataset.k]=i.checked;if(i.dataset.k==='mastered'&&i.checked)state[x.n].reviewed=true;save()});return a}));document.querySelector('#empty').classList.toggle('show',!visible.length);document.querySelector('#masteredCount').textContent=questions.filter(x=>state[x.n]?.mastered).length+' / 11'}
+category.onchange=render;status.onchange=render;document.querySelector('#pending').onclick=()=>{status.value='pending';render()};render();
+</script>
+</body>
+</html>
