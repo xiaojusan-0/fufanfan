@@ -78,6 +78,15 @@
     .short-answer-item summary { cursor:pointer; font-weight:800; line-height:1.55; }
     .short-answer-item details[open] summary { color:var(--blue); }
     .short-answer-chapter { display:block; margin:5px 0 0; color:var(--muted); font-size:12px; font-weight:400; }
+    .short-answer-group { margin-top:14px; }
+    .short-answer-group + .short-answer-group { margin-top:18px; }
+    .short-answer-group-title { display:flex; align-items:center; gap:8px; margin:0; padding:9px 2px; border-bottom:1px solid var(--line); font-size:15px; }
+    .short-answer-group-title span { color:var(--muted); font-size:12px; font-weight:700; }
+    .priority-badge { display:inline-flex; align-items:center; min-height:24px; margin-right:7px; padding:2px 7px; border-radius:5px; font-size:12px; font-weight:900; vertical-align:1px; }
+    .priority-一级 { background:#fde9e9; color:#b83e3e; }
+    .priority-二级 { background:var(--blue-soft); color:var(--blue); }
+    .priority-三级 { background:var(--green-soft); color:var(--green); }
+    .priority-未标级 { background:#eef1f3; color:var(--muted); }
     .short-answer-item ol { margin:11px 0 0; padding-left:24px; line-height:1.75; }
     .short-answer-mnemonic { margin:10px 0 0; padding:9px 11px; border-left:4px solid var(--amber); background:var(--amber-soft); color:#6d4b12; font-weight:800; line-height:1.6; }
     .short-answer-full { display:inline-block; margin-top:13px; font-size:13px; font-weight:800; }
@@ -235,7 +244,7 @@
         <button id="closeShortAnswers" type="button">收起全部答案</button>
       </div>
       <div class="short-answer-list" id="shortAnswerList"></div>
-      <a class="short-answer-full" href="./科目二教育教学知识与能力备考/90_主观题与答题技巧/科目二简答题反问工作台.html">进入完整 47 道简答反问工作台</a>
+      <a class="short-answer-full" href="./科目二教育教学知识与能力备考/90_主观题与答题技巧/科目二简答题反问工作台.html">进入完整 100 道分级简答反问工作台</a>
     </section>
 
     <section class="material-panel" aria-labelledby="materialName">
@@ -314,7 +323,7 @@
           <a href="https://www.fenbi.com/spa/pwa/episodes/795097" target="_blank" rel="noopener">粉笔刷题班网课</a>
           <a href="./科目一综合素质备考/00_总入口/复习地图.txt">科一复习地图</a>
           <a href="./科目二教育教学知识与能力备考/00_总入口/复习地图.txt">科二复习地图</a>
-          <a href="./科目二教育教学知识与能力备考/90_主观题与答题技巧/科目二简答题反问工作台.html">科二 47 道简答反问</a>
+          <a href="./科目二教育教学知识与能力备考/90_主观题与答题技巧/科目二简答题反问工作台.html">科二 100 道分级简答反问</a>
           <a href="./科目二教育教学知识与能力备考/90_主观题与答题技巧/科目二材料分析题必备考点反问工作台.html">科二材料题 18 组必备考点</a>
           <a href="./科目一综合素质备考/05_基本能力/写作/作文42人物素材每日清单.txt">作文 42 人物素材完整清单</a>
           <a href="./教资刷题班资料/刷题班资料索引.txt">刷题班题本与解析索引</a>
@@ -400,19 +409,25 @@
       const panel = document.querySelector('#shortAnswerPanel');
       panel.hidden = !assignment;
       if (!assignment) return;
-      const questions = assignment.ids.map(id => shortAnswerQuestions.find(question => question.id === id)).filter(Boolean);
+      const memorizeIds = assignment.memorizeIds || [];
+      const understandIds = assignment.understandIds || assignment.ids || [];
+      const total = memorizeIds.length + understandIds.length;
       document.querySelector('#shortAnswerTitle').textContent = assignment.label;
-      document.querySelector('#shortAnswerCount').textContent = `${questions.length} 道`;
+      document.querySelector('#shortAnswerCount').textContent = memorizeIds.length ? memorizeIds.length + ' 必背 + ' + understandIds.length + ' 了解' : total + ' 道';
       const list = document.querySelector('#shortAnswerList');
-      list.replaceChildren(...questions.map(question => {
+
+      function createQuestion(question, mode) {
         const wrapper = document.createElement('div');
         wrapper.className = 'short-answer-item';
         const details = document.createElement('details');
         const summary = document.createElement('summary');
-        summary.appendChild(document.createTextNode(`${question.id}. ${question.question}`));
+        const badge = document.createElement('span');
+        badge.className = 'priority-badge priority-' + question.priority;
+        badge.textContent = question.priority + ' · ' + (mode === 'memorize' ? '必背' : '了解');
+        summary.append(badge, document.createTextNode(question.id + '. ' + question.question));
         const chapter = document.createElement('span');
         chapter.className = 'short-answer-chapter';
-        chapter.textContent = question.chapter;
+        chapter.textContent = mode === 'memorize' ? '要求：合上答案完整口述，再对照补漏。' : '要求：读题后说出核心关键词，能识别考点即可。';
         summary.appendChild(chapter);
         const answerList = document.createElement('ol');
         answerList.replaceChildren(...question.answers.map(answer => {
@@ -429,7 +444,23 @@
         }
         wrapper.appendChild(details);
         return wrapper;
-      }));
+      }
+
+      function createGroup(title, note, ids, mode) {
+        const group = document.createElement('section');
+        group.className = 'short-answer-group';
+        const heading = document.createElement('h3');
+        heading.className = 'short-answer-group-title';
+        heading.append(document.createTextNode(title), Object.assign(document.createElement('span'), { textContent: note }));
+        const questions = ids.map(id => shortAnswerQuestions.find(question => question.id === id)).filter(Boolean);
+        group.append(heading, ...questions.map(question => createQuestion(question, mode)));
+        return group;
+      }
+
+      const groups = [];
+      if (memorizeIds.length) groups.push(createGroup('一级主背', '完整背诵，循环复现', memorizeIds, 'memorize'));
+      if (understandIds.length) groups.push(createGroup('二三级了解', '关键词识别，不要求逐字背诵', understandIds, 'understand'));
+      list.replaceChildren(...groups);
     }
 
     function renderResources(item) {
