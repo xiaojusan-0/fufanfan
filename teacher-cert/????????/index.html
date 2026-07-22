@@ -1,0 +1,273 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>教资2轮复习工作台</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <section class="title-block">
+        <p class="eyebrow">2026-07-17 · 最低配版任务清单</p>
+        <h1>教资2轮复习工作台</h1>
+        <p class="subtitle">今天只做 4 件小事，做完准时 17:30 收工。</p>
+      </section>
+      <section class="exam-card" aria-label="考试倒计时">
+        <span class="exam-label">距离 9.12 考试</span>
+        <strong>57</strong>
+        <span class="exam-label">天</span>
+      </section>
+    </header>
+
+    <section class="metrics" aria-label="今日进度">
+      <article class="metric">
+        <div class="ring" data-value="0"><span>0%</span></div>
+        <div>
+          <h2>今日完成度</h2>
+          <p>按清单打钩，完成就收。</p>
+          <input class="progress-input" data-key="today" type="range" min="0" max="100" value="0" aria-label="今日完成度">
+        </div>
+      </article>
+      <article class="metric">
+        <div class="ring green" data-value="0"><span>0%</span></div>
+        <div>
+          <h2>科一轻量刷题</h2>
+          <p>真题选择 29 道 + 文化素养 15 道。</p>
+          <input class="progress-input" data-key="subjectOneChoice" type="range" min="0" max="100" value="0" aria-label="科一选择题进度">
+        </div>
+      </article>
+      <article class="metric">
+        <div class="ring amber" data-value="0"><span>0%</span></div>
+        <div>
+          <h2>背诵任务</h2>
+          <p>教育观/职业道德 + 科二 P16-P25。</p>
+          <input class="progress-input" data-key="recitation" type="range" min="0" max="100" value="0" aria-label="背诵任务进度">
+        </div>
+      </article>
+    </section>
+
+    <section class="panel today-panel">
+      <div class="panel-head">
+        <div>
+          <p class="eyebrow">今日任务</p>
+          <h2>最低配，做完就停</h2>
+        </div>
+        <button class="icon-button" id="resetTasks" title="重置今日勾选" aria-label="重置今日勾选">↺</button>
+      </div>
+
+      <div class="task-table" aria-label="今日最低配版任务清单">
+        <div class="task-row task-row-head">
+          <span>时间段</span>
+          <span>任务</span>
+          <span>说明</span>
+          <span>打钩</span>
+        </div>
+        <label class="task-row">
+          <span class="time">早晨 7:30-8:30</span>
+          <span><strong>背诵：教育观 + 职业道德</strong><small>职业道德重点背“三爱两人一终身”。</small></span>
+          <span>这两条和学生观是科一材料题必考三件套，今天背完就凑齐了。</span>
+          <span class="check-cell"><input type="checkbox" data-task="morning-education-ethics"></span>
+        </label>
+        <label class="task-row">
+          <span class="time">上午 9:30-11:00</span>
+          <span><strong>做一套科一真题选择题 29 道 + 文化素养 15 道</strong></span>
+          <span>不做材料分析，不做作文，只做选择，轻轻松松。</span>
+          <span class="check-cell"><input type="checkbox" data-task="forenoon-choice-culture"></span>
+        </label>
+        <label class="task-row">
+          <span class="time">下午 14:30-15:30</span>
+          <span><strong>背科二简答题 P16-P25</strong><small>只背 10 个，不用背 20 个。</small></span>
+          <span>背完前面 10 个就算赢。</span>
+          <span class="check-cell"><input type="checkbox" data-task="afternoon-short-answer-p16-p25"></span>
+        </label>
+        <label class="task-row">
+          <span class="time">下午 15:30-16:00</span>
+          <span><strong>法律法规 15 道</strong><small>做错没关系，答案看一遍有个印象就行。</small></span>
+          <span>15 道，10 分钟就做完了。</span>
+          <span class="check-cell"><input type="checkbox" data-task="afternoon-law-15"></span>
+        </label>
+        <label class="task-row">
+          <span class="time">16:00 以后</span>
+          <span><strong>提前收工！周末开始！</strong></span>
+          <span>坚决不碰书。</span>
+          <span class="check-cell"><input type="checkbox" data-task="afterwork-stop"></span>
+        </label>
+      </div>
+
+      <p class="summary-note">今天总共只需做：<strong>44 道核心选择题 + 背 1 组教育观/职业道德 + 背 10 个简答</strong>。法律法规 15 道只当过眼印象，比昨天还轻松，毫无压力。</p>
+    </section>
+
+    <section class="layout">
+      <section class="panel">
+        <div class="panel-head">
+          <div>
+            <p class="eyebrow">早晨背诵</p>
+            <h2>材料题三件套补齐</h2>
+          </div>
+        </div>
+        <div class="memory-grid">
+          <article class="memory-card blue">
+            <h3>教育观</h3>
+            <strong>素质教育内涵 + 新课改教学观</strong>
+            <p>提素全动可持续，全体个性社创实；学习者中心、教会学习、重过程、关注人。</p>
+            <a href="../科目一综合素质备考/01_职业理念/教育观/教育观-资料索引.txt">打开教育观资料</a>
+          </article>
+          <article class="memory-card green">
+            <h3>职业道德</h3>
+            <strong>三爱两人一终身</strong>
+            <p>爱国守法、爱岗敬业、关爱学生；教书育人、为人师表；终身学习。</p>
+            <a href="../科目一综合素质备考/03_教师职业道德/职业道德-备考笔记.txt">打开职业道德卡</a>
+          </article>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <div>
+            <p class="eyebrow">选择题</p>
+            <h2>轻量完成记录</h2>
+          </div>
+        </div>
+        <div class="counter-grid">
+          <label class="counter-box">
+            <span>科一真题选择</span>
+            <input class="number-input" data-count="realChoiceDone" type="number" min="0" max="29" value="0" aria-label="科一真题选择题完成数">
+            <small><b data-count-output="realChoiceDone">0</b>/29</small>
+          </label>
+          <label class="counter-box">
+            <span>文化素养</span>
+            <input class="number-input" data-count="cultureChoiceDone" type="number" min="0" max="15" value="0" aria-label="文化素养完成数">
+            <small><b data-count-output="cultureChoiceDone">0</b>/15</small>
+          </label>
+          <label class="counter-box">
+            <span>法律法规</span>
+            <input class="number-input" data-count="lawChoiceDone" type="number" min="0" max="15" value="0" aria-label="法律法规完成数">
+            <small><b data-count-output="lawChoiceDone">0</b>/15</small>
+          </label>
+          <label class="counter-box calm">
+            <span>今日原则</span>
+            <strong>错了也不用慌</strong>
+            <small>答案看一遍，有印象就算完成。</small>
+          </label>
+        </div>
+        <textarea class="note-area" data-note="choiceNotes" rows="5" placeholder="只记最轻量的信息：题号 / 考点 / 下次看到先想什么。"></textarea>
+      </section>
+    </section>
+
+    <section class="layout">
+      <section class="panel">
+        <div class="panel-head">
+          <div>
+            <p class="eyebrow">下午科二</p>
+            <h2>简答题 P16-P25</h2>
+          </div>
+          <a class="file-link" href="../教资刷题班资料/刷题班资料索引.txt">打开资料索引</a>
+        </div>
+        <div class="page-checks" aria-label="P16-P25 打卡">
+          <label><input type="checkbox" data-task="p16">P16</label>
+          <label><input type="checkbox" data-task="p17">P17</label>
+          <label><input type="checkbox" data-task="p18">P18</label>
+          <label><input type="checkbox" data-task="p19">P19</label>
+          <label><input type="checkbox" data-task="p20">P20</label>
+          <label><input type="checkbox" data-task="p21">P21</label>
+          <label><input type="checkbox" data-task="p22">P22</label>
+          <label><input type="checkbox" data-task="p23">P23</label>
+          <label><input type="checkbox" data-task="p24">P24</label>
+          <label><input type="checkbox" data-task="p25">P25</label>
+        </div>
+        <textarea class="note-area" data-note="subjectTwoNotes" rows="5" placeholder="背完只记 1-3 个卡壳的关键词，别把自己拖进大整理。"></textarea>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <div>
+            <p class="eyebrow">16:00 以后</p>
+            <h2>收工确认</h2>
+          </div>
+          <a class="file-link" href="../每日打卡记录/2026-07-17_打卡.txt">今日打卡</a>
+        </div>
+        <div class="template-steps">
+          <article><strong>1. 不补材料分析</strong><span>今天上午明确不做材料分析，不临时加题。</span></article>
+          <article><strong>2. 不补作文</strong><span>作文今天不碰，保持最低配。</span></article>
+          <article><strong>3. 不追求全会</strong><span>法规 15 道只求见过答案，简答只背 P16-P25。</span></article>
+          <article><strong>4. 准时停</strong><span>16:00 后不碰书，17:30 前结束学习状态。</span></article>
+        </div>
+      </section>
+    </section>
+
+    <section class="panel resource-panel">
+      <div class="panel-head">
+        <div>
+          <p class="eyebrow">资料入口</p>
+          <h2>今天只开这些</h2>
+        </div>
+        <a class="file-link" href="../每日打卡记录/2026-07-17_最低配任务清单.txt">文字清单</a>
+      </div>
+      <div class="resource-grid">
+        <a class="resource-item" href="../教资刷题班资料/刷题班资料索引.txt">
+          <img src="./assets/subject-one-course-progress.png" alt="科一资料预览">
+          <span>科一二轮笔记</span>
+        </a>
+        <a class="resource-item" href="../教资刷题班资料/刷题班资料索引.txt">
+          <img src="./assets/subject-two-learned-page.png" alt="科二资料预览">
+          <span>科二二轮笔记</span>
+        </a>
+        <a class="resource-item" href="../科目一综合素质备考/02_教育法律法规/法律法规-今日学习卡.txt">
+          <img src="./assets/culture-traditional-learned.png" alt="法律法规资料预览">
+          <span>法律法规学习卡</span>
+        </a>
+        <a class="resource-item" href="../教资二轮复习计划工作台.html">
+          <img src="./assets/subject-one-course-progress.png" alt="教资二轮复习计划入口预览">
+          <span>二轮复习计划</span>
+        </a>
+        <a class="resource-item" href="../short-answer.html">
+          <img src="./assets/subject-two-pending-design-math.png" alt="科二简答题反问入口预览">
+          <span>科二简答反问</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="layout bottom-layout">
+      <section class="panel">
+        <div class="panel-head">
+          <div>
+            <p class="eyebrow">轻量复盘</p>
+            <h2>只写三行</h2>
+          </div>
+        </div>
+        <textarea class="note-area large" data-note="todayReview" rows="8" placeholder="1. 今天完成了哪几项？&#10;2. 哪个点最卡？&#10;3. 周末开始前，明天第一眼看什么？"></textarea>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <div>
+            <p class="eyebrow">常用文件</p>
+            <h2>今日入口</h2>
+          </div>
+        </div>
+        <nav class="link-list" aria-label="常用文件">
+          <a href="../每日打卡记录/2026-07-17_打卡.txt">2026-07-17 今日打卡记录</a>
+          <a href="../每日打卡记录/2026-07-17_最低配任务清单.txt">2026-07-17 最低配任务清单</a>
+          <a href="../科目一综合素质备考/01_职业理念/教育观/教育观-资料索引.txt">教育观资料索引</a>
+          <a href="../科目一综合素质备考/01_职业理念/学生观/学生观-备考笔记.txt">学生观材料题模板</a>
+          <a href="../科目一综合素质备考/01_职业理念/教师观/教师观-备考笔记.txt">教师观材料题模板</a>
+          <a href="../科目一综合素质备考/03_教师职业道德/职业道德-备考笔记.txt">职业道德背诵卡</a>
+          <a href="../科目一综合素质备考/02_教育法律法规/法律法规-今日学习卡.txt">法律法规今日学习卡</a>
+          <a href="../科目一综合素质备考/04_文化素养/文化素养-已学清单.txt">文化素养已学清单</a>
+          <a href="../科目二教育教学知识与能力备考/00_总入口/复习地图.txt">科二复习地图</a>
+          <a href="../short-answer.html">科二简答题反问工作台</a>
+          <a href="../short-answer.html">科二100道分级简答反问工作台</a>
+          <a href="../教资二轮复习计划工作台.html">二轮复习计划工作台</a>
+          <a href="../教资二轮每日复习工作台.html">今日复习任务入口</a>
+          <a href="../教资备考学习计划-2026-09-12考试.txt">40 个工作日文字计划</a>
+          <a href="../当前执行版学习计划.txt">当前执行计划</a>
+        </nav>
+      </section>
+    </section>
+  </main>
+
+  <script src="./app.js"></script>
+</body>
+</html>
