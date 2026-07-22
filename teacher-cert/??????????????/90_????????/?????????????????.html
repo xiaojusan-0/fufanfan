@@ -1,0 +1,122 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>科目二材料分析题必备考点反问工作台</title>
+  <style>
+    :root { --bg:#f3f6f4; --panel:#fff; --text:#17221f; --muted:#66736f; --line:#d7e0dc; --green:#176b57; --green-soft:#e7f3ef; --blue:#285d8f; --blue-soft:#eaf1f8; --amber:#8c6119; --amber-soft:#fff4d9; --red:#a04444; --shadow:0 10px 28px rgba(31,52,46,.08); }
+    * { box-sizing:border-box; }
+    body { margin:0; min-width:320px; background:var(--bg); color:var(--text); font-family:"Microsoft YaHei","PingFang SC",sans-serif; letter-spacing:0; }
+    button,input,select { font:inherit; }
+    a { color:var(--blue); }
+    .shell { width:min(1120px,calc(100% - 32px)); margin:0 auto; padding:20px 0 48px; }
+    .top-links { display:flex; flex-wrap:wrap; gap:16px; margin-bottom:12px; font-size:14px; }
+    .hero,.stats,.toolbar,.method,.card { background:var(--panel); border:1px solid var(--line); border-radius:8px; box-shadow:var(--shadow); }
+    .hero { padding:24px; }
+    .eyebrow { margin:0 0 7px; color:var(--green); font-size:13px; font-weight:900; }
+    h1 { margin:0 0 9px; font-size:36px; line-height:1.18; }
+    .subtitle { margin:0; color:var(--muted); line-height:1.7; }
+    .stats { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); margin:12px 0; overflow:hidden; }
+    .stat { padding:15px 18px; border-right:1px solid var(--line); }
+    .stat:last-child { border-right:0; }
+    .stat strong { display:block; color:var(--green); font-size:25px; }
+    .stat span { color:var(--muted); font-size:13px; }
+    .method { margin-bottom:12px; padding:18px 20px; }
+    .method h2 { margin:0 0 10px; font-size:19px; }
+    .method-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; }
+    .step { padding-left:12px; border-left:3px solid var(--green); line-height:1.55; }
+    .step strong { display:block; margin-bottom:3px; color:var(--green); }
+    .toolbar { position:sticky; top:0; z-index:5; display:grid; grid-template-columns:minmax(0,1fr) 220px auto auto auto; gap:9px; padding:13px; margin-bottom:12px; }
+    input,select,button { min-height:42px; border:1px solid var(--line); border-radius:6px; padding:0 11px; background:#fff; color:var(--text); }
+    button { cursor:pointer; color:var(--blue); font-weight:900; }
+    button:hover { border-color:var(--blue); }
+    .cards { display:grid; gap:11px; }
+    .card { padding:16px 18px; }
+    .card.selected { border-color:var(--amber); box-shadow:0 0 0 3px rgba(140,97,25,.13); }
+    .card-head { display:grid; grid-template-columns:46px minmax(0,1fr) auto; gap:10px; align-items:center; margin-bottom:10px; }
+    .badge { display:grid; place-items:center; width:42px; height:30px; border-radius:5px; background:var(--blue); color:#fff; font-weight:900; }
+    .angle { color:var(--muted); font-size:13px; font-weight:800; }
+    .mastery { display:flex; align-items:center; gap:6px; color:var(--muted); font-size:13px; cursor:pointer; }
+    .mastery input { width:19px; height:19px; min-height:0; accent-color:var(--green); }
+    summary { cursor:pointer; font-size:18px; font-weight:900; line-height:1.5; }
+    details[open] summary { color:var(--blue); }
+    .answer { margin-top:13px; padding-top:13px; border-top:1px solid var(--line); }
+    .answer h3 { margin:13px 0 6px; color:var(--muted); font-size:13px; }
+    .answer h3:first-child { margin-top:0; }
+    ol { margin:0; padding-left:24px; line-height:1.75; }
+    .clues { margin:0; padding:11px 13px; background:var(--blue-soft); border-radius:6px; color:#244e75; line-height:1.65; }
+    .memory { margin:11px 0 0; padding:11px 13px; background:var(--amber-soft); border-left:4px solid var(--amber); color:#6d4b12; font-weight:800; line-height:1.65; }
+    .template { margin:11px 0 0; padding:11px 13px; background:var(--green-soft); color:#205647; border-radius:6px; line-height:1.7; }
+    .hidden { display:none; }
+    .empty { display:none; padding:30px; color:var(--muted); text-align:center; }
+    .empty.show { display:block; }
+    @media(max-width:780px) { .shell{width:min(100% - 20px,1120px);padding-top:10px;} h1{font-size:29px;} .stats,.method-grid,.toolbar{grid-template-columns:1fr;} .stat{border-right:0;border-bottom:1px solid var(--line);} .stat:last-child{border-bottom:0;} .toolbar{position:static;} .card-head{grid-template-columns:42px minmax(0,1fr);} .mastery{grid-column:2;} }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <nav class="top-links" aria-label="固定入口">
+      <a href="../../教资二轮每日复习工作台.html?date=2026-07-21">返回今日计划</a>
+      <a href="../../short-answer.html">科二简答反问</a>
+      <a href="./科目二材料分析题必备考点清单.txt">材料题文字清单</a>
+    </nav>
+    <section class="hero">
+      <p class="eyebrow">科目二 · 主观题与答题技巧</p>
+      <h1>材料分析题必备考点反问工作台</h1>
+      <p class="subtitle">来源：主观技巧1-材料分析专项 (2).pdf 第 02 部分“材料分析题素材汇总”（课件第 67-74 页）。先看问题口答，再展开答案，用“理论点 + 材料行为 + 结果”完成对应。</p>
+    </section>
+    <section class="stats" aria-label="掌握情况">
+      <div class="stat"><strong>18</strong><span>组必备考点</span></div>
+      <div class="stat"><strong>6</strong><span>个材料分析角度</span></div>
+      <div class="stat"><strong id="masteredCount">0 / 18</strong><span>已掌握，保存在本机</span></div>
+    </section>
+    <section class="method">
+      <h2>材料题四步作答</h2>
+      <div class="method-grid">
+        <div class="step"><strong>1. 定角度</strong>先看设问限定：教育观、教学、德育还是班主任。</div>
+        <div class="step"><strong>2. 写理论</strong>每个得分点先写规范理论名称和核心含义。</div>
+        <div class="step"><strong>3. 扣材料</strong>紧跟“材料中……”指出教师具体行为，不空贴标签。</div>
+        <div class="step"><strong>4. 作评价</strong>说明该行为体现或违背理论，以及产生的教育结果。</div>
+      </div>
+    </section>
+    <section class="toolbar" aria-label="筛选工具">
+      <input id="search" type="search" placeholder="搜索考点、识别词或口诀">
+      <select id="angle"><option value="">全部角度</option></select>
+      <button id="randomOne" type="button">随机反问</button>
+      <button id="openAll" type="button">展开答案</button>
+      <button id="closeAll" type="button">收起答案</button>
+    </section>
+    <section class="cards" id="cards"></section>
+    <p class="empty" id="empty">没有匹配的考点。</p>
+  </main>
+  <script src="./科目二材料分析题必备考点数据.js"></script>
+  <script>
+    const points = window.teacherMaterialAnalysisPoints;
+    const storageKey='teacher-cert-material-analysis-v1';
+    const mastered=new Set(JSON.parse(localStorage.getItem(storageKey)||'[]'));
+    const cards=document.querySelector('#cards');
+    const search=document.querySelector('#search');
+    const angle=document.querySelector('#angle');
+    const empty=document.querySelector('#empty');
+    [...new Set(points.map(item=>item.angle))].forEach(name=>{const option=document.createElement('option');option.value=name;option.textContent=name;angle.appendChild(option);});
+    function render(){
+      cards.innerHTML=points.map((item,index)=>`<article class="card" data-index="${index}" data-angle="${item.angle}" data-search="${[item.angle,item.title,item.memory,item.clues,...item.items].join(' ')}">
+        <div class="card-head"><span class="badge">${String(index+1).padStart(2,'0')}</span><span class="angle">${item.angle}</span><label class="mastery"><input type="checkbox" ${mastered.has(index)?'checked':''}>已掌握</label></div>
+        <details><summary>${item.title}</summary><div class="answer"><h3>规范要点</h3><ol>${item.items.map(point=>`<li>${point}</li>`).join('')}</ol><h3>材料识别词</h3><p class="clues">${item.clues}</p><p class="memory">${item.memory}</p><p class="template"><strong>套材料句式：</strong>材料中，教师通过“具体行为”，体现了/违背了“理论点”。这一做法有利于/不利于“学生发展结果”。因此，教师应当“对应改进”。</p></div></details>
+      </article>`).join('');
+      cards.querySelectorAll('.card').forEach(card=>{const index=Number(card.dataset.index);const checkbox=card.querySelector('.mastery input');checkbox.addEventListener('change',()=>{if(checkbox.checked)mastered.add(index);else mastered.delete(index);localStorage.setItem(storageKey,JSON.stringify([...mastered]));updateStats();});});
+      applyFilter();updateStats();
+    }
+    function updateStats(){document.querySelector('#masteredCount').textContent=`${mastered.size} / ${points.length}`;}
+    function visibleCards(){return [...cards.querySelectorAll('.card')].filter(card=>!card.classList.contains('hidden'));}
+    function applyFilter(){const q=search.value.trim().toLowerCase();const selected=angle.value;let count=0;cards.querySelectorAll('.card').forEach(card=>{const ok=(!q||card.dataset.search.toLowerCase().includes(q))&&(!selected||card.dataset.angle===selected);card.classList.toggle('hidden',!ok);card.classList.remove('selected');if(ok)count+=1;});empty.classList.toggle('show',count===0);}
+    search.addEventListener('input',applyFilter);angle.addEventListener('change',applyFilter);
+    document.querySelector('#openAll').addEventListener('click',()=>visibleCards().forEach(card=>card.querySelector('details').open=true));
+    document.querySelector('#closeAll').addEventListener('click',()=>cards.querySelectorAll('details').forEach(item=>item.open=false));
+    document.querySelector('#randomOne').addEventListener('click',()=>{const pool=visibleCards();if(!pool.length)return;cards.querySelectorAll('.card').forEach(card=>card.classList.remove('selected'));cards.querySelectorAll('details').forEach(item=>item.open=false);const target=pool[Math.floor(Math.random()*pool.length)];target.classList.add('selected');target.scrollIntoView({behavior:'smooth',block:'center'});});
+    render();
+  </script>
+</body>
+</html>
+

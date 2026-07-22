@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>科目二 100 道分级简答题反问工作台</title>
+  <style>
+    :root{--bg:#f4f6f7;--panel:#fff;--text:#18212a;--muted:#637080;--line:#d9e1e5;--blue:#1769aa;--green:#18785b;--amber:#a96b08;--red:#b83e3e;--soft-blue:#eaf3fa;--soft-green:#e9f5f0;--soft-amber:#fff4dc;--soft-gray:#eef1f3;--shadow:0 10px 30px rgba(24,33,42,.07)}
+    *{box-sizing:border-box}body{margin:0;min-width:320px;background:var(--bg);color:var(--text);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;letter-spacing:0}button,input,select{font:inherit}.shell{width:min(1120px,calc(100% - 28px));margin:0 auto;padding:20px 0 40px}.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}.back{color:var(--blue);font-weight:800;text-decoration:none}.source{color:var(--muted);font-size:12px}.hero,.toolbar,.daily,.card,.stat{background:var(--panel);border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow)}.hero{padding:22px 24px}.eyebrow{margin:0 0 7px;color:var(--green);font-size:13px;font-weight:900}h1{margin:0;font-size:clamp(26px,4vw,38px);line-height:1.2}.subtitle{margin:10px 0 0;color:var(--muted);line-height:1.7}.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:12px 0}.stat{padding:14px 16px}.stat strong{display:block;font-size:24px}.stat span{color:var(--muted);font-size:13px}.daily{margin-bottom:12px;padding:18px 20px;border-top:4px solid var(--green)}.daily-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}.daily h2{margin:0 0 5px;font-size:21px}.daily p{margin:0;color:var(--muted);line-height:1.6}.daily-list{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}.today-link{display:inline-flex;align-items:center;min-height:36px;padding:6px 9px;border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--text);text-decoration:none;font-weight:800;cursor:pointer}.toolbar{display:grid;grid-template-columns:minmax(0,1fr) 180px auto auto;gap:8px;padding:12px;position:sticky;top:0;z-index:5}input,select,button{min-height:40px;border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--text);padding:0 11px}button{cursor:pointer;font-weight:800}button:hover{border-color:var(--blue);color:var(--blue)}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:12px}.card{padding:16px;box-shadow:none}.card-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px}.number{color:var(--muted);font-size:12px;font-weight:900}.priority{display:inline-flex;align-items:center;min-height:26px;padding:3px 8px;border-radius:5px;font-size:12px;font-weight:900}.p1{background:#fde9e9;color:var(--red)}.p2{background:var(--soft-blue);color:var(--blue)}.p3{background:var(--soft-green);color:var(--green)}.pu{background:var(--soft-gray);color:var(--muted)}summary{cursor:pointer;font-size:16px;font-weight:900;line-height:1.55}details[open] summary{color:var(--blue)}ol{margin:12px 0 0;padding-left:23px;line-height:1.75}li+li{margin-top:5px}.mnemonic{margin:11px 0 0;padding:10px 12px;border-left:4px solid var(--amber);background:var(--soft-amber);color:#674507;font-weight:800;line-height:1.65}.empty{display:none;padding:30px 0;color:var(--muted);text-align:center}.empty.show{display:block}
+    @media(max-width:760px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.toolbar{grid-template-columns:1fr 130px}.toolbar button{width:100%}.grid{grid-template-columns:1fr}.source{display:none}.daily-head{display:block}.daily-head .today-link{margin-top:10px}}
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <div class="topbar"><a class="back" href="./教资二轮复习计划工作台.html">返回二轮总览</a><span class="source">来源：小学科目二简答题汇总100道.pdf</span></div>
+    <section class="hero">
+      <p class="eyebrow">科目二 · 简答题分级复习</p>
+      <h1>100 道简答题反问工作台</h1>
+      <p class="subtitle">一级题用于完整背诵和反复口答；二级、三级题以读题后说出核心关键词为目标。第 55 题在原 PDF 中没有优先级标记，按“了解”处理。</p>
+    </section>
+    <section class="stats" aria-label="题目统计">
+      <div class="stat"><strong>30</strong><span>一级 · 优先背诵</span></div><div class="stat"><strong>46</strong><span>二级 · 理解识记</span></div><div class="stat"><strong>23</strong><span>三级 · 浏览了解</span></div><div class="stat"><strong>1</strong><span>未标级 · 按了解</span></div>
+    </section>
+    <section class="daily" id="daily" hidden>
+      <div class="daily-head"><div><h2 id="dailyTitle"></h2><p>先背一级题，再用关键词复述了解题。</p></div><a class="today-link" id="dailyPage">打开每日计划</a></div>
+      <div class="daily-list" id="dailyList"></div>
+    </section>
+    <section class="toolbar" aria-label="筛选工具">
+      <input id="search" type="search" placeholder="搜索题目、答案或口诀">
+      <select id="priority"><option value="">全部优先级</option><option value="一级">一级 · 必背</option><option value="二级">二级 · 了解</option><option value="三级">三级 · 了解</option><option value="未标级">未标级 · 了解</option></select>
+      <button id="openAll" type="button">展开答案</button><button id="closeAll" type="button">收起答案</button>
+    </section>
+    <section class="grid" id="grid"></section><p class="empty" id="empty">没有匹配的题目。</p>
+  </main>
+  <script src="./科目二教育教学知识与能力备考/90_主观题与答题技巧/科目二简答题数据.js?v=20260722-priority100"></script>
+  <script>
+    const questions=window.teacherShortAnswerQuestions||[],dailyPlan=window.teacherDailyShortAnswerPlan||{},grid=document.querySelector('#grid'),search=document.querySelector('#search'),priority=document.querySelector('#priority');
+    const priorityMeta={'一级':{className:'p1',text:'一级 · 必背'},'二级':{className:'p2',text:'二级 · 了解'},'三级':{className:'p3',text:'三级 · 了解'},'未标级':{className:'pu',text:'未标级 · 了解'}};
+    function renderCards(){const query=search.value.trim().toLowerCase(),selected=priority.value;const visible=questions.filter(question=>{const text=[question.question,...question.answers,question.mnemonic].join(' ').toLowerCase();return(!query||text.includes(query))&&(!selected||question.priority===selected)});grid.replaceChildren(...visible.map(question=>{const article=document.createElement('article');article.className='card';const head=document.createElement('div');head.className='card-head';const number=document.createElement('span');number.className='number';number.textContent='第 '+question.id+' 题';const badge=document.createElement('span');const meta=priorityMeta[question.priority]||priorityMeta['未标级'];badge.className='priority '+meta.className;badge.textContent=meta.text;head.append(number,badge);const details=document.createElement('details'),summary=document.createElement('summary');summary.textContent=question.question;const list=document.createElement('ol');list.replaceChildren(...question.answers.map(answer=>{const item=document.createElement('li');item.textContent=answer;return item}));details.append(summary,list);if(question.mnemonic){const mnemonic=document.createElement('p');mnemonic.className='mnemonic';mnemonic.textContent=question.mnemonic;details.appendChild(mnemonic)}article.append(head,details);return article}));document.querySelector('#empty').classList.toggle('show',visible.length===0)}
+    function localDate(){const now=new Date(),pad=value=>String(value).padStart(2,'0');return now.getFullYear()+'-'+pad(now.getMonth()+1)+'-'+pad(now.getDate())}
+    function renderToday(){const date=new URLSearchParams(location.search).get('date')||localDate(),assignment=dailyPlan[date],panel=document.querySelector('#daily');if(!assignment)return;panel.hidden=false;document.querySelector('#dailyTitle').textContent=date+' · '+assignment.label;document.querySelector('#dailyPage').href='./教资二轮每日复习工作台.html?date='+date;document.querySelector('#dailyList').replaceChildren(...assignment.ids.map(id=>{const question=questions.find(item=>item.id===id),tag=document.createElement('button');tag.type='button';tag.className='today-link';tag.textContent=(assignment.memorizeIds||[]).includes(id)?'必背 '+id:'了解 '+id;tag.addEventListener('click',()=>{priority.value='';search.value=question?question.question:String(id);renderCards();grid.scrollIntoView({behavior:'smooth',block:'start'})});return tag}))}
+    search.addEventListener('input',renderCards);priority.addEventListener('change',renderCards);document.querySelector('#openAll').addEventListener('click',()=>document.querySelectorAll('#grid details').forEach(item=>item.open=true));document.querySelector('#closeAll').addEventListener('click',()=>document.querySelectorAll('#grid details').forEach(item=>item.open=false));renderToday();renderCards();
+  </script>
+</body>
+</html>
